@@ -67,10 +67,11 @@ a {
     background-color: #ddd;
 }
 
+
 #posts th {
     padding-top: 12px;
     padding-bottom: 12px;
-    text-align: left;
+    text-align: center;
     background-color: #04AA6D;
     color: white;
 }
@@ -97,11 +98,6 @@ a {
 .btn-red {
     background-color: #f44336;
 }
-/* 
-.center-button {
-    display: inline-block;
-    margin: auto;
-} */
 
 input[type=text],
 select {
@@ -112,4 +108,56 @@ select {
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
+}
+
+.auth-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+  input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  .btn-group {
+    display: flex;
+    gap: 10px;
+  }
+
+  .auth {
+    display: flex;
+    justify-content: right;
+  }
+.pagination {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+}
+
+.btn-paging {
+  padding: 5px 15px;
+  background-color: #f4f4f4;
+  border: 1px solid #ddd;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.btn-paging:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-paging:hover:not(:disabled) {
+  background-color: #04AA6D;
+  color: white;
+}
+
+.page-info {
+  font-weight: bold;
+  color: #333;
 }

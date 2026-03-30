@@ -1,8 +1,7 @@
 <script setup>
-import axios from 'axios';
 import { defineProps } from 'vue';
 import { RouterLink, useRouter } from 'vue-router';
-
+import axiosApi from '@/lib/axios'
 const router = useRouter();
 
 const props = defineProps({
@@ -11,10 +10,13 @@ const props = defineProps({
 
 const deletePost = async (postId) => {
     try {
+        console.log(postId)
         const confirm = window.confirm('Are you sure you want to delete this posts?');
         if(confirm) {
-            await axios.delete(`http://localhost:8080/posts/${postId}`);
-            router.push('/');
+            await axiosApi.delete(`/Post?id=eq.${postId}`);
+            window.alert('Post deleted successfully!');
+            router.push('/posts');
+            router.go(0);
         }
     } catch (error) {
         console.error("Error deleting post: ", error);
@@ -23,8 +25,8 @@ const deletePost = async (postId) => {
 </script>
 <template>
     <tr>
-        <td>{{ post.id }}</td>
         <td>{{ post.title }}</td>
+        <td>{{ post.description }}</td>
         <td>
             <RouterLink :to="`/posts/${post.id}`" class="btn btn-green">O</RouterLink>
             <RouterLink :to="`/posts/edit/${post.id}`"class="btn btn-blue">/</RouterLink>

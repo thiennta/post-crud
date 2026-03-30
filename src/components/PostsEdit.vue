@@ -1,5 +1,5 @@
 <script setup>
-import axios from 'axios';
+import axiosApi from '@/lib/axios'
 import { onMounted, reactive } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -15,9 +15,13 @@ const form = reactive({
 
 onMounted( async () => {
     try {
-        const response = await axios.get(`http://localhost:8080/posts/${postId}`);
-        form.title = response.data.title;
-        form.description = response.data.description;
+        const response = await axiosApi.get(`/Post?id=eq.${postId}`);
+        if (response.data && response.data.length > 0) {
+            const postData = response.data[0]; 
+            form.title = postData.title;
+            form.description = postData.description;
+            form.id = postData.id
+        }
     } catch (error) {
         console.log("Error fetching post", response);
     }
@@ -26,12 +30,13 @@ onMounted( async () => {
 const handleSubmit = async () => {
     const updatePost = {
         title: form.title,
-        description: form.description
+        description: form.description,
+        id: form.id
     }
 
     try {
-        const response = await axios.put(`http://localhost:8080/posts/${postId}`, updatePost);
-        router.push(`/posts/${response.data.id}`);
+        const response = await axiosApi.put(`/Post?id=eq.${postId}`, updatePost);
+        router.push(`/posts`);
     } catch (error) {
         console.error("Error updating post", error);
     }

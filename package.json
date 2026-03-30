@@ -10,6 +10,7 @@
     "server": "json-server --watch src/posts.json --port 8080"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.100.1",
     "axios": "^1.7.3",
     "json-server": "^1.0.0-beta.1",
     "vue": "^3.4.29",

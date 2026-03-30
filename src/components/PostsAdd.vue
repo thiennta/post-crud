@@ -1,5 +1,5 @@
 <script setup>
-import axios from 'axios';
+import axiosApi from '@/lib/axios'
 import { reactive } from 'vue';
 import router from '@/router';
 
@@ -10,11 +10,12 @@ const form = reactive({
 const handleSubmit = async () => {
     const newPost = {
         title: form.title,
-        description: form.title
+        description: form.description
     }
 
     try {
-        const response = await axios.post('http://localhost:8080/posts', newPost);
+        const response = await axiosApi.post('/Post', newPost);
+        window.alert('Post created successfully!');
         return router.push('/posts');
     } catch (error) {
         console.error("Error on posting data:", error);

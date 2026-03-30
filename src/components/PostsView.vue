@@ -1,5 +1,5 @@
 <script setup>
-import axios from 'axios';
+import axiosApi from '@/lib/axios'
 import { onMounted, reactive } from 'vue';
 import { useRoute } from 'vue-router';
 
@@ -12,8 +12,12 @@ const state = reactive({
 
 onMounted(async () => {
     try {
-        const response = await axios.get(`http://localhost:8080/posts/${postId}`);
-        state.post = response.data;
+        console.log(state.post.title)
+        const response = await axiosApi.get(`Post?id=eq.${postId}`);
+        if (response.data && response.data.length > 0) {
+            state.post = response.data[0]; 
+            console.log("Fetched data:", state.post.title);
+        }
     } catch (error) {
         console.log("Error while fetching: ", error);
     }
@@ -23,8 +27,14 @@ onMounted(async () => {
 </script>
 <template>
     <div class="center-container">
-        <h1>{{ state.post.title }}</h1>
-        <p>{{ state.post.description }}</p>
+        <div v-if="state.post.title">
+            <h1>Title: {{ state.post.title }}</h1>
+            <p>{{ state.post.description }}</p>
+        </div>
+        <div v-else>
+            <p>Loading...</p>
+        </div>
+        <br>
         <RouterLink :to="`/posts`" class="btn btn-green">Return to Posts</RouterLink>
     </div>
 </template>
