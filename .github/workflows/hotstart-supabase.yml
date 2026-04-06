@@ -1,0 +1,15 @@
+name: Keep Supabase Alive
+on:
+  schedule:
+    - cron: '0 0 * * 1,4' # Chạy vào thứ 2 và thứ 5 hàng tuần
+  workflow_dispatch: # Cho phép chạy thủ công để kiểm tra log
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Database
+        run: |
+          curl --location 'https://rejaudwpxcvpynggbayl.supabase.co/rest/v1/Post' \
+          --header 'sec-ch-ua-platform: "Windows"' \
+          --header 'apikey: sb_publishable_1nIVXB0osuVdzF-Lk6HqIA_d2BM2Xqj'
